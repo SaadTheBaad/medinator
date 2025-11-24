@@ -20,13 +20,13 @@ const MedinatorChat: React.FC = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-20 p-4 bg-white rounded-lg shadow">
-      <h1 className="text-2xl font-bold mb-4">Medinator</h1>
+    <div className="medinator">
+      <h1 className="medinator-title">Medinator</h1>
 
       <textarea
-        className="w-full border p-2 rounded"
-        rows={4}
+        className="medinator-input"
         placeholder="Describe your symptoms..."
+        rows={4}
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
@@ -34,30 +34,43 @@ const MedinatorChat: React.FC = () => {
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="mt-3 px-4 py-2 bg-blue-600 text-white rounded"
+        className="medinator-button"
       >
         {loading ? "Analyzing..." : "Submit"}
       </button>
 
       {result && (
-        <div className="mt-6 p-4 border rounded bg-gray-50">
-          <h2 className="font-bold text-lg mb-2">
+        <div className="medinator-result">
+          <h2 className="medinator-result-title">
             Category: {result.category}
           </h2>
 
-          <p><strong>Likely conditions:</strong> {result.likely_conditions.join(", ")}</p>
-          <p><strong>Urgency:</strong> {result.urgency_level}</p>
+          <p>
+            <strong>Likely conditions:</strong>{" "}
+            {result.likely_conditions?.join(", ")}
+          </p>
+          <p>
+            <strong>Urgency:</strong> {result.urgency_level}
+          </p>
 
-          {result.red_flags_detected.length > 0 && (
-            <p className="text-red-600">
-              <strong>Red flags:</strong> {result.red_flags_detected.join(", ")}
-            </p>
-          )}
+          {result.red_flags_detected &&
+            result.red_flags_detected.length > 0 && (
+              <p className="medinator-result-redflags">
+                <strong>Red flags:</strong>{" "}
+                {result.red_flags_detected.join(", ")}
+              </p>
+            )}
 
-          <p className="mt-2"><strong>Reasoning:</strong> {result.reasoning}</p>
-          <p className="mt-2"><strong>Advice:</strong> {result.advice}</p>
+          <p className="medinator-result-text">
+            <strong>Reasoning:</strong> {result.reasoning}
+          </p>
+          <p className="medinator-result-text">
+            <strong>Advice:</strong> {result.advice}
+          </p>
 
-          <p className="text-xs text-gray-500 mt-4">{result.disclaimer}</p>
+          <p className="medinator-result-disclaimer">
+            {result.disclaimer}
+          </p>
         </div>
       )}
     </div>
