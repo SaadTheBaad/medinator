@@ -27,7 +27,7 @@ export default function HistoryPage() {
   return (
     <div className="page-container">
       <div className="page-card">
-        <h1>Your Symptom History (Premium demo)</h1>
+        <h1>Your Symptom History</h1>
         <p>
           This shows past Medinator sessions saved on your device. In a real
           subscription, this could sync across devices and accounts.

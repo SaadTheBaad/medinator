@@ -1,3 +1,7 @@
+/* =========================================================
+   1. Root variables & global base styles
+   ========================================================= */
+
 :root {
   color-scheme: light;
   --bg-page: #f5f5f7;
@@ -31,7 +35,9 @@ body,
   flex-direction: column;
 }
 
-/* Top navigation */
+/* =========================================================
+   2. Top navigation
+   ========================================================= */
 
 .app-nav {
   position: sticky;
@@ -56,16 +62,6 @@ body,
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-}
-
-.app-badge {
-  font-size: 0.7rem;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background-color: var(--accent-soft);
-  color: var(--accent);
-  text-transform: uppercase;
-  font-weight: 600;
 }
 
 .app-nav-links {
@@ -100,7 +96,9 @@ body,
   width: 100%;
 }
 
-/* Main layout */
+/* =========================================================
+   3. Home page layout (hero + main panel)
+   ========================================================= */
 
 .app-main {
   display: grid;
@@ -157,7 +155,57 @@ body,
   border: 1px solid rgba(229, 231, 235, 0.9);
 }
 
-/* Info section */
+/* Mascot + floating animation on home */
+
+.app-mascot-stack {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Big screen: mascot floats slightly above/left of the card */
+.medinator-mascot {
+  position: absolute;
+  left: 320px;
+  top: -40px;
+  height: 140px;
+  object-fit: contain;
+  pointer-events: none;
+  animation: mascot-float 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Small screens: mascot above the card */
+@media (max-width: 900px) {
+  .app-mascot-stack {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .medinator-mascot {
+    position: static;
+    margin-bottom: 8px;
+    height: 120px;
+  }
+}
+
+/* Subtle floating animation for the Medinator mascot */
+@keyframes mascot-float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   4. “How it works” info section
+   ========================================================= */
 
 .app-info {
   padding: 20px 7vw 32px;
@@ -196,7 +244,9 @@ body,
   line-height: 1.6;
 }
 
-/* Footer */
+/* =========================================================
+   5. Footer
+   ========================================================= */
 
 .app-footer {
   padding: 20px 7vw 18px;
@@ -219,7 +269,9 @@ body,
   color: var(--text-soft);
 }
 
-/* Medinator component styling */
+/* =========================================================
+   6. Medinator (symptom flow) component
+   ========================================================= */
 
 .medinator {
   display: flex;
@@ -316,7 +368,7 @@ body,
   color: var(--text-muted);
 }
 
-/* Result card */
+/* Medinator result card */
 
 .medinator-result {
   margin-top: 14px;
@@ -350,7 +402,7 @@ body,
   color: var(--text-soft);
 }
 
-/* History */
+/* Medinator history summary (on main card) */
 
 .medinator-history {
   margin-top: 14px;
@@ -380,7 +432,9 @@ body,
   margin-left: 4px;
 }
 
-/* Pages: doctor report, journal, history */
+/* =========================================================
+   7. Shared page layout (doctor report, journaling, history)
+   ========================================================= */
 
 .page-container {
   padding: 32px 7vw;
@@ -406,7 +460,9 @@ body,
   color: var(--text-muted);
 }
 
-/* Doctor report */
+/* =========================================================
+   8. Doctor report page
+   ========================================================= */
 
 .doctor-report-section {
   margin-top: 14px;
@@ -427,28 +483,512 @@ body,
   padding-left: 18px;
 }
 
-/* Journal */
+/* =========================================================
+   9. Journaling page (chat + therapist booking)
+   ========================================================= */
 
-.journal-input {
+/* Wider card on journaling page */
+.journal-card {
+  max-width: 1180px;
   width: 100%;
-  margin-top: 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  resize: vertical;
-  min-height: 130px;
 }
 
-.journal-response {
-  margin-top: 16px;
-  padding: 10px 12px;
-  border-radius: 12px;
+/* Extra horizontal padding for journaling route on very large screens */
+@media (min-width: 1280px) {
+  .journal-page {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+/* Header */
+
+.journal-header {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.journal-header-main p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.journal-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.journal-title-row h1 {
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+.journal-pill {
+  font-size: 0.7rem;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.journal-header-side {
+  flex-shrink: 0;
+}
+
+.journal-mascot {
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(15, 23, 42, 0.2));
+}
+
+/* Feelings chips */
+
+.journal-feelings {
+  margin-bottom: 14px;
+}
+
+.journal-feelings-label {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.journal-feelings-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.journal-chip {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease,
+    transform 0.08s ease, box-shadow 0.12s ease;
+}
+
+.journal-chip:hover {
   background-color: #eff6ff;
-  border: 1px solid #bfdbfe;
+  border-color: #bfdbfe;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(148, 163, 184, 0.4);
+}
+
+.journal-chip-active {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+
+/* Layout: chat left + tips/therapists right */
+
+.journal-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.journal-left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat area */
+
+.journal-chat {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 10px 10px 8px;
+  max-height: 320px;
+  overflow-y: auto;
   font-size: 0.9rem;
 }
 
-/* History */
+.journal-empty-state {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  padding: 6px 4px;
+}
+
+.journal-bubble-row {
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.journal-bubble-row-user {
+  justify-content: flex-end;
+}
+
+.journal-bubble-row-assistant {
+  justify-content: flex-start;
+}
+
+.journal-bubble {
+  max-width: 80%;
+  padding: 7px 10px;
+  border-radius: 12px;
+  position: relative;
+  line-height: 1.45;
+}
+
+.journal-bubble-user {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.journal-bubble-user p {
+  color: #ffffff;
+}
+
+.journal-bubble-user .journal-bubble-time {
+  color: #e5e7eb;
+}
+
+.journal-bubble-assistant {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: var(--text-main);
+  border-bottom-left-radius: 4px;
+}
+
+.journal-bubble-time {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+/* Input area */
+
+.journal-input-area {
+  margin-top: 10px;
+}
+
+.journal-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.journal-input {
+  width: 100%;
+  padding: 10px 11px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  resize: vertical;
+  min-height: 110px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.journal-input:focus {
+  outline: none;
+  border-color: #bfdbfe;
+  box-shadow: 0 0 0 1px #bfdbfe;
+}
+
+.journal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.journal-actions-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.journal-char-count {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.journal-clear-btn {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  font-size: 0.78rem;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.journal-clear-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Right column container */
+
+.journal-right {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.85rem;
+}
+
+.journal-right h3 {
+  font-size: 0.95rem;
+  margin: 0 0 4px;
+}
+
+.journal-right ul {
+  margin: 4px 0 8px;
+  padding-left: 18px;
+  color: var(--text-muted);
+}
+
+.journal-safe-note {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 6px;
+}
+
+/* Right column: sections + therapist cards */
+
+.journal-right-section {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.85rem;
+}
+
+.journal-right-section + .journal-right-section {
+  margin-top: 10px;
+}
+
+.journal-right-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 3px 0 8px;
+}
+
+.therapist-section {
+  background-color: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.therapist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.therapist-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  padding: 8px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.therapist-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.therapist-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.therapist-creds {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.therapist-specialty {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.therapist-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+.therapist-availability {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background-color: #eef2ff;
+  color: #4338ca;
+}
+
+.therapist-location {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.therapist-book-btn {
+  margin-top: 6px;
+  align-self: flex-start;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: none;
+  background-color: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.12s ease, transform 0.08s ease,
+    box-shadow 0.12s ease;
+}
+
+.therapist-book-btn:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.therapist-disclaimer {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+/* Booking modal (demo only) */
+
+.booking-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.booking-modal {
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 18px 18px 14px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.45);
+}
+
+.booking-modal h2 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+
+.booking-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.booking-label {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.booking-label input,
+.booking-label textarea {
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  padding: 7px 9px;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.booking-label textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.booking-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.booking-secondary {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.booking-confirmation p {
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+/* Booking modal mobile tweak */
+@media (max-width: 800px) {
+  .booking-modal {
+    margin: 0 12px;
+  }
+}
+
+/* Journaling page responsive layout */
+
+@media (max-width: 800px) {
+  .journal-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .journal-mascot {
+    height: 60px;
+  }
+
+  .journal-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .journal-right {
+    order: -1;
+  }
+
+  .journal-chat {
+    max-height: 260px;
+  }
+}
+
+/* =========================================================
+   10. History page
+   ========================================================= */
 
 .history-list {
   margin-top: 12px;
@@ -531,7 +1071,9 @@ body,
   color: var(--text-soft);
 }
 
-/* Responsive */
+/* =========================================================
+   11. Global responsive tweaks
+   ========================================================= */
 
 @media (max-width: 900px) {
   .app-main {
@@ -566,3 +1108,36 @@ body,
     display: none;
   }
 }
+
+/* ---------- Doctor report print styling ---------- */
+
+@media print {
+  html,
+  body,
+  #root {
+    background: #ffffff !important;
+  }
+
+  /* Hide nav, footer, etc when printing */
+  .app-nav,
+  .app-footer,
+  .app-info,
+  .app-main,
+  .no-print {
+    display: none !important;
+  }
+
+  .page-container.report-print-area {
+    padding: 0 !important;
+  }
+
+  .page-container.report-print-area .page-card {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+

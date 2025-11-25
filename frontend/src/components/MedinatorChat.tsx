@@ -157,7 +157,7 @@ const MedinatorChat: React.FC = () => {
           </p>
 
           <button className="medinator-button" onClick={handleViewReport}>
-            View doctor summary (Premium demo)
+            View doctor summary
           </button>
         </div>
       )}

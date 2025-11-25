@@ -4,23 +4,23 @@ import DoctorReport from "./premium/DoctorReport";
 import JournalingAssistant from "./premium/JournalingAssistant";
 import HistoryPage from "./premium/HistoryPage";
 import "./App.css";
+import mascot from "./assets/medinator-mascot.png";
 
 function Header() {
   return (
     <header className="app-nav">
       <div className="app-nav-left">
         <span className="app-logo">Medinator</span>
-        <span className="app-badge">Beta</span>
       </div>
       <nav className="app-nav-links">
         <NavLink to="/" className="app-link">
           Home
         </NavLink>
         <NavLink to="/journal" className="app-link">
-          Journaling (Premium demo)
+          Journaling
         </NavLink>
         <NavLink to="/history" className="app-link">
-          History (Premium demo)
+          History
         </NavLink>
       </nav>
     </header>
@@ -49,8 +49,15 @@ function HomePage() {
         </section>
 
         <section className="app-panel" aria-label="Medinator questionnaire">
-          <div className="card">
-            <MedinatorChat />
+          <div className="app-mascot-stack">
+            <img
+              src={mascot}
+              alt="Medinator character"
+              className="medinator-mascot"
+            />
+            <div className="card">
+              <MedinatorChat />
+            </div>
           </div>
         </section>
       </main>
@@ -88,7 +95,7 @@ function HomePage() {
 
 function Footer() {
   return (
-    <footer id="disclaimer" className="app-footer">
+    <footer id="disclaimer" className="app-footer no-print">
       <p className="app-footer-title">Important safety notice</p>
       <p>
         Medinator is a student project and an educational tool only. It does not
