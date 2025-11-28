@@ -15,23 +15,22 @@ const allowedOrigins = [
   "https://medinator.vercel.app",
 ];
 
-app.use(
-  cors({
-    origin(origin, callback) {
-      // allow non browser tools (no origin) and our known frontends
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+const corsOptions = {
+  origin(origin, callback) {
+    // allow non-browser tools (no Origin header) and our known frontends
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+};
 
-// Make sure OPTIONS preflight gets the CORS headers
-app.options("*", cors());
+app.use(cors(corsOptions));
+// Explicitly handle OPTIONS for all API routes (valid pattern for Express 5)
+app.options("/api/*", cors(corsOptions));
 
 app.use(express.json());
 
