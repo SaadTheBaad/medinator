@@ -5,6 +5,9 @@ import mascot from "../assets/medinator-mascot.png";
  *  Constants & types
  *  ---------------------------------------------------------------- */
 
+const API_BASE =
+  import.meta.env.VITE_MEDINATOR_API_BASE || "http://localhost:3001";
+
 const FEELINGS = [
   "Stressed",
   "Anxious",
@@ -153,7 +156,7 @@ export default function JournalingAssistant() {
     setResponsePending(true);
 
     try {
-      const res = await fetch("http://localhost:3001/api/journal", {
+      const res = await fetch(`${API_BASE}/api/journal`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ entry: taggedEntry }),
