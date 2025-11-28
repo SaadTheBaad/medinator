@@ -1,7 +1,5 @@
 import express from "express";
 import OpenAI from "openai";
-import dotenv from "dotenv";
-dotenv.config();
 
 const router = express.Router();
 
@@ -14,8 +12,10 @@ router.post("/", async (req, res) => {
   try {
     const { symptomDescription } = req.body;
 
-    if (!symptomDescription) {
-      return res.status(400).json({ error: "Missing symptomDescription" });
+    if (!symptomDescription || typeof symptomDescription !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid symptomDescription" });
     }
 
     const systemPrompt = `
@@ -89,11 +89,15 @@ Return ONLY JSON with this shape:
       ],
     });
 
-    const result = JSON.parse(completion.choices[0].message.content);
+    const content = completion.choices[0].message.content;
+    const result = JSON.parse(content);
+
     return res.json(result);
   } catch (error) {
     console.error("Medinator API error:", error);
-    res.status(500).json({ error: "Server error calling AI" });
+    return res
+      .status(500)
+      .json({ error: "Server error calling AI for Medinator" });
   }
 });
 

@@ -17,7 +17,7 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin(origin, callback) {
-    // allow non-browser tools (no Origin header) and our known frontends
+    // Allow non-browser tools (no Origin header) and our known frontends
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -26,16 +26,17 @@ const corsOptions = {
   },
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
-  optionsSuccessStatus: 204, // for legacy browsers
+  optionsSuccessStatus: 204,
 };
 
-app.use(cors(corsOptions));  
-
+app.use(cors(corsOptions));
 app.use(express.json());
 
+// --- API routes ---
 app.use("/api/medinator", medinatorRoute);
 app.use("/api/journal", journalRoute);
 
+// Simple health check
 app.get("/", (_req, res) => {
   res.send("Medinator backend is running.");
 });
