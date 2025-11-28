@@ -26,11 +26,10 @@ const corsOptions = {
   },
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
+  optionsSuccessStatus: 204, // for legacy browsers
 };
 
-app.use(cors(corsOptions));
-// Explicitly handle OPTIONS for all API routes (valid pattern for Express 5)
-app.options("/api/*", cors(corsOptions));
+app.use(cors(corsOptions));  
 
 app.use(express.json());
 
