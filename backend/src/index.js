@@ -9,7 +9,30 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+// Allow local dev and Vercel frontend
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://medinator.vercel.app",
+];
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      // allow non browser tools (no origin) and our known frontends
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
+// Make sure OPTIONS preflight gets the CORS headers
+app.options("*", cors());
+
 app.use(express.json());
 
 app.use("/api/medinator", medinatorRoute);
